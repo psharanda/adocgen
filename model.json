@@ -1,0 +1,409 @@
+{
+  "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift" : {
+    "key.substructure" : [
+      {
+        "key.kind" : "source.lang.swift.decl.class",
+        "key.offset" : 109,
+        "key.parsed_declaration" : "class CellModel",
+        "key.namelength" : 9,
+        "key.bodyoffset" : 120,
+        "key.bodylength" : 113,
+        "key.length" : 9,
+        "key.name" : "CellModel",
+        "key.typename" : "CellModel.Type",
+        "key.parsed_scope.end" : 17,
+        "key.usr" : "s:C9CellModel9CellModel",
+        "key.nameoffset" : 109,
+        "key.annotated_decl" : "<Declaration>class CellModel<\/Declaration>",
+        "key.accessibility" : "source.lang.swift.accessibility.internal",
+        "key.substructure" : [
+          {
+            "key.kind" : "source.lang.swift.decl.function.method.instance",
+            "key.offset" : 135,
+            "key.parsed_declaration" : "func fromDict(dict:[String : JSON]) -> Void",
+            "key.namelength" : 30,
+            "key.bodyoffset" : 175,
+            "key.bodylength" : 14,
+            "key.length" : 30,
+            "key.name" : "fromDict(_:)",
+            "key.typename" : "<<error type>>",
+            "key.parsed_scope.end" : 12,
+            "key.usr" : "s:FC9CellModel9CellModel8fromDictERR",
+            "key.nameoffset" : 135,
+            "key.annotated_decl" : "<Declaration>func fromDict(dict: [<Type usr=\"s:SS\">String<\/Type> : JSON]) -&gt; &lt;&lt;error type&gt;&gt;<\/Declaration>",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
+            "key.substructure" : [
+
+            ],
+            "key.parsed_scope.start" : 10,
+            "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift"
+          },
+          {
+            "key.kind" : "source.lang.swift.decl.function.method.instance",
+            "key.offset" : 209,
+            "key.parsed_declaration" : "required init()",
+            "key.namelength" : 6,
+            "key.bodyoffset" : 217,
+            "key.bodylength" : 14,
+            "key.length" : 6,
+            "key.name" : "init()",
+            "key.typename" : "CellModel.Type -> () -> CellModel",
+            "key.parsed_scope.end" : 16,
+            "key.usr" : "s:FC9CellModel9CellModelcFMS0_FT_S0_",
+            "key.attributes" : [
+              {
+                "key.attribute" : "source.decl.attribute.required"
+              }
+            ],
+            "key.nameoffset" : 209,
+            "key.annotated_decl" : "<Declaration>required init()<\/Declaration>",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
+            "key.parsed_scope.start" : 14,
+            "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift"
+          }
+        ],
+        "key.runtime_name" : "_TtC8__main__9CellModel",
+        "key.parsed_scope.start" : 8,
+        "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift"
+      },
+      {
+        "key.kind" : "source.lang.swift.decl.class",
+        "key.offset" : 342,
+        "key.parsed_declaration" : "class DefaultCellModel : CellModel",
+        "key.doc.comment" : "Simplest type of cell. Has optional title and icon. Corresponds to  cell of .Default style.",
+        "key.namelength" : 16,
+        "key.doc.line" : 22,
+        "key.bodylength" : 393,
+        "key.length" : 16,
+        "key.doc.column" : 7,
+        "key.parsed_scope.end" : 39,
+        "key.usr" : "s:C9CellModel16DefaultCellModel",
+        "key.doc.file" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+        "key.nameoffset" : 342,
+        "key.annotated_decl" : "<Declaration>class DefaultCellModel : <Type usr=\"s:C9CellModel9CellModel\">CellModel<\/Type><\/Declaration>",
+        "key.accessibility" : "source.lang.swift.accessibility.internal",
+        "key.runtime_name" : "_TtC8__main__16DefaultCellModel",
+        "key.elements" : [
+          {
+            "key.kind" : "source.lang.swift.structure.elem.typeref",
+            "key.offset" : 361,
+            "key.length" : 9
+          }
+        ],
+        "key.parsed_scope.start" : 22,
+        "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+        "key.bodyoffset" : 373,
+        "key.doc.declaration" : "class DefaultCellModel : CellModel",
+        "key.name" : "DefaultCellModel",
+        "key.typename" : "DefaultCellModel.Type",
+        "key.doc.type" : "Class",
+        "key.attributes" : [
+          {
+            "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+          }
+        ],
+        "key.doc.full_as_xml" : "<Class file=\"\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift\" line=\"22\" column=\"7\"><Name>DefaultCellModel<\/Name><USR>s:C9CellModel16DefaultCellModel<\/USR><Declaration>class DefaultCellModel : CellModel<\/Declaration><Abstract><Para>Simplest type of cell. Has optional title and icon. Corresponds to  cell of .Default style.<\/Para><\/Abstract><\/Class>",
+        "key.doc.name" : "DefaultCellModel",
+        "key.inheritedtypes" : [
+          {
+            "key.name" : "CellModel"
+          }
+        ],
+        "key.substructure" : [
+          {
+            "key.kind" : "source.lang.swift.decl.var.instance",
+            "key.offset" : 499,
+            "key.parsed_declaration" : "var title: String?",
+            "key.doc.comment" : "The name of a book, chapter, poem, essay, picture, statue, piece of music, play, film, etc",
+            "key.namelength" : 5,
+            "key.doc.line" : 27,
+            "key.length" : 5,
+            "key.doc.declaration" : "var title: String?",
+            "key.typename" : "String?",
+            "key.name" : "title",
+            "key.doc.column" : 9,
+            "key.parsed_scope.end" : 27,
+            "key.usr" : "s:vC9CellModel16DefaultCellModel5titleGSqSS_",
+            "key.doc.type" : "Other",
+            "key.attributes" : [
+              {
+                "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+              }
+            ],
+            "key.doc.full_as_xml" : "<Other file=\"\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift\" line=\"27\" column=\"9\"><Name>title<\/Name><USR>s:vC9CellModel16DefaultCellModel5titleGSqSS_<\/USR><Declaration>var title: String?<\/Declaration><Abstract><Para>The name of a book, chapter, poem, essay, picture, statue, piece of music, play, film, etc<\/Para><\/Abstract><\/Other>",
+            "key.nameoffset" : 499,
+            "key.doc.file" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+            "key.annotated_decl" : "<Declaration>var title: <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
+            "key.doc.name" : "title",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
+            "key.setter_accessibility" : "source.lang.swift.accessibility.internal",
+            "key.parsed_scope.start" : 27,
+            "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift"
+          },
+          {
+            "key.kind" : "source.lang.swift.decl.var.instance",
+            "key.offset" : 565,
+            "key.parsed_declaration" : "var iconName: String?",
+            "key.doc.comment" : "The name of icon",
+            "key.namelength" : 8,
+            "key.doc.line" : 32,
+            "key.length" : 8,
+            "key.doc.declaration" : "var iconName: String?",
+            "key.typename" : "String?",
+            "key.name" : "iconName",
+            "key.doc.column" : 9,
+            "key.parsed_scope.end" : 32,
+            "key.usr" : "s:vC9CellModel16DefaultCellModel8iconNameGSqSS_",
+            "key.doc.type" : "Other",
+            "key.attributes" : [
+              {
+                "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+              }
+            ],
+            "key.doc.full_as_xml" : "<Other file=\"\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift\" line=\"32\" column=\"9\"><Name>iconName<\/Name><USR>s:vC9CellModel16DefaultCellModel8iconNameGSqSS_<\/USR><Declaration>var iconName: String?<\/Declaration><Abstract><Para>The name of icon<\/Para><\/Abstract><\/Other>",
+            "key.nameoffset" : 565,
+            "key.doc.file" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+            "key.annotated_decl" : "<Declaration>var iconName: <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
+            "key.doc.name" : "iconName",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
+            "key.setter_accessibility" : "source.lang.swift.accessibility.internal",
+            "key.parsed_scope.start" : 32,
+            "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift"
+          },
+          {
+            "key.kind" : "source.lang.swift.decl.function.method.instance",
+            "key.offset" : 606,
+            "key.parsed_declaration" : "override func fromDict(dict: [String : JSON])",
+            "key.namelength" : 31,
+            "key.bodyoffset" : 639,
+            "key.bodylength" : 125,
+            "key.length" : 31,
+            "key.name" : "fromDict(_:)",
+            "key.typename" : "<<error type>>",
+            "key.parsed_scope.end" : 38,
+            "key.usr" : "s:FC9CellModel16DefaultCellModel8fromDictERR",
+            "key.attributes" : [
+              {
+                "key.attribute" : "source.decl.attribute.override"
+              }
+            ],
+            "key.related_decls" : [
+              {
+                "key.annotated_decl" : "<RelatedName usr=\"s:FC9CellModel9CellModel8fromDictERR\">fromDict(_: [String : JSON]) -&gt; &lt;&lt;error type&gt;&gt;<\/RelatedName>"
+              }
+            ],
+            "key.nameoffset" : 606,
+            "key.annotated_decl" : "<Declaration>override func fromDict(dict: [<Type usr=\"s:SS\">String<\/Type> : JSON]) -&gt; &lt;&lt;error type&gt;&gt;<\/Declaration>",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
+            "key.substructure" : [
+
+            ],
+            "key.parsed_scope.start" : 34,
+            "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift"
+          }
+        ]
+      },
+      {
+        "key.kind" : "source.lang.swift.decl.class",
+        "key.offset" : 904,
+        "key.parsed_declaration" : "class SubtitleCellModel : DefaultCellModel",
+        "key.doc.comment" : "More advance type of cell. Has optional subtitle addionally to title and icon. Corresponds to  cell of .Subtitle style.",
+        "key.namelength" : 17,
+        "key.doc.line" : 44,
+        "key.bodylength" : 352,
+        "key.length" : 17,
+        "key.doc.column" : 7,
+        "key.parsed_scope.end" : 60,
+        "key.usr" : "s:C9CellModel17SubtitleCellModel",
+        "key.doc.file" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+        "key.nameoffset" : 904,
+        "key.annotated_decl" : "<Declaration>class SubtitleCellModel : <Type usr=\"s:C9CellModel16DefaultCellModel\">DefaultCellModel<\/Type><\/Declaration>",
+        "key.accessibility" : "source.lang.swift.accessibility.internal",
+        "key.runtime_name" : "_TtC8__main__17SubtitleCellModel",
+        "key.elements" : [
+          {
+            "key.kind" : "source.lang.swift.structure.elem.typeref",
+            "key.offset" : 924,
+            "key.length" : 16
+          }
+        ],
+        "key.parsed_scope.start" : 44,
+        "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+        "key.bodyoffset" : 943,
+        "key.doc.declaration" : "class SubtitleCellModel : DefaultCellModel",
+        "key.name" : "SubtitleCellModel",
+        "key.typename" : "SubtitleCellModel.Type",
+        "key.doc.type" : "Class",
+        "key.attributes" : [
+          {
+            "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+          }
+        ],
+        "key.doc.full_as_xml" : "<Class file=\"\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift\" line=\"44\" column=\"7\"><Name>SubtitleCellModel<\/Name><USR>s:C9CellModel17SubtitleCellModel<\/USR><Declaration>class SubtitleCellModel : DefaultCellModel<\/Declaration><Abstract><Para>More advance type of cell. Has optional subtitle addionally to title and icon. Corresponds to  cell of .Subtitle style.<\/Para><\/Abstract><\/Class>",
+        "key.doc.name" : "SubtitleCellModel",
+        "key.inheritedtypes" : [
+          {
+            "key.name" : "DefaultCellModel"
+          }
+        ],
+        "key.substructure" : [
+          {
+            "key.kind" : "source.lang.swift.decl.var.instance",
+            "key.offset" : 1032,
+            "key.parsed_declaration" : "var subtitle: String = \"DEFAULT_SUBTITLE\"",
+            "key.doc.comment" : "A secondary or explanatory title, as of a book or play",
+            "key.namelength" : 8,
+            "key.doc.line" : 49,
+            "key.length" : 8,
+            "key.doc.declaration" : "var subtitle: String",
+            "key.typename" : "String",
+            "key.name" : "subtitle",
+            "key.doc.column" : 9,
+            "key.parsed_scope.end" : 49,
+            "key.usr" : "s:vC9CellModel17SubtitleCellModel8subtitleSS",
+            "key.doc.type" : "Other",
+            "key.attributes" : [
+              {
+                "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+              }
+            ],
+            "key.doc.full_as_xml" : "<Other file=\"\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift\" line=\"49\" column=\"9\"><Name>subtitle<\/Name><USR>s:vC9CellModel17SubtitleCellModel8subtitleSS<\/USR><Declaration>var subtitle: String<\/Declaration><Abstract><Para>A secondary or explanatory title, as of a book or play<\/Para><\/Abstract><\/Other>",
+            "key.nameoffset" : 1032,
+            "key.doc.file" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+            "key.annotated_decl" : "<Declaration>var subtitle: <Type usr=\"s:SS\">String<\/Type><\/Declaration>",
+            "key.doc.name" : "subtitle",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
+            "key.setter_accessibility" : "source.lang.swift.accessibility.internal",
+            "key.parsed_scope.start" : 49,
+            "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift"
+          },
+          {
+            "key.kind" : "source.lang.swift.decl.function.method.instance",
+            "key.offset" : 1093,
+            "key.parsed_declaration" : "override func fromDict(dict: [String : JSON])",
+            "key.namelength" : 31,
+            "key.bodyoffset" : 1126,
+            "key.bodylength" : 167,
+            "key.length" : 31,
+            "key.name" : "fromDict(_:)",
+            "key.typename" : "<<error type>>",
+            "key.parsed_scope.end" : 59,
+            "key.usr" : "s:FC9CellModel17SubtitleCellModel8fromDictERR",
+            "key.attributes" : [
+              {
+                "key.attribute" : "source.decl.attribute.override"
+              }
+            ],
+            "key.related_decls" : [
+              {
+                "key.annotated_decl" : "<RelatedName usr=\"s:FC9CellModel16DefaultCellModel8fromDictERR\">fromDict(_: [String : JSON]) -&gt; &lt;&lt;error type&gt;&gt;<\/RelatedName>"
+              },
+              {
+                "key.annotated_decl" : "<RelatedName usr=\"s:FC9CellModel9CellModel8fromDictERR\">fromDict(_: [String : JSON]) -&gt; &lt;&lt;error type&gt;&gt;<\/RelatedName>"
+              }
+            ],
+            "key.nameoffset" : 1093,
+            "key.annotated_decl" : "<Declaration>override func fromDict(dict: [<Type usr=\"s:SS\">String<\/Type> : JSON]) -&gt; &lt;&lt;error type&gt;&gt;<\/Declaration>",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
+            "key.substructure" : [
+
+            ],
+            "key.parsed_scope.start" : 51,
+            "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift"
+          }
+        ]
+      },
+      {
+        "key.kind" : "source.lang.swift.decl.class",
+        "key.offset" : 1424,
+        "key.parsed_declaration" : "class Value1CellModel: SubtitleCellModel",
+        "key.doc.comment" : "Nice looking cell with title from the left and subtitle from the right. Corresponds to  cell of .Value1 style.",
+        "key.namelength" : 15,
+        "key.doc.line" : 65,
+        "key.bodylength" : 6,
+        "key.length" : 15,
+        "key.doc.column" : 7,
+        "key.parsed_scope.end" : 67,
+        "key.usr" : "s:C9CellModel15Value1CellModel",
+        "key.doc.file" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+        "key.nameoffset" : 1424,
+        "key.annotated_decl" : "<Declaration>class Value1CellModel : <Type usr=\"s:C9CellModel17SubtitleCellModel\">SubtitleCellModel<\/Type><\/Declaration>",
+        "key.accessibility" : "source.lang.swift.accessibility.internal",
+        "key.runtime_name" : "_TtC8__main__15Value1CellModel",
+        "key.elements" : [
+          {
+            "key.kind" : "source.lang.swift.structure.elem.typeref",
+            "key.offset" : 1441,
+            "key.length" : 17
+          }
+        ],
+        "key.parsed_scope.start" : 65,
+        "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+        "key.bodyoffset" : 1460,
+        "key.doc.declaration" : "class Value1CellModel : SubtitleCellModel",
+        "key.name" : "Value1CellModel",
+        "key.typename" : "Value1CellModel.Type",
+        "key.doc.type" : "Class",
+        "key.attributes" : [
+          {
+            "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+          }
+        ],
+        "key.doc.full_as_xml" : "<Class file=\"\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift\" line=\"65\" column=\"7\"><Name>Value1CellModel<\/Name><USR>s:C9CellModel15Value1CellModel<\/USR><Declaration>class Value1CellModel : SubtitleCellModel<\/Declaration><Abstract><Para>Nice looking cell with title from the left and subtitle from the right. Corresponds to  cell of .Value1 style.<\/Para><\/Abstract><\/Class>",
+        "key.doc.name" : "Value1CellModel",
+        "key.inheritedtypes" : [
+          {
+            "key.name" : "SubtitleCellModel"
+          }
+        ]
+      },
+      {
+        "key.kind" : "source.lang.swift.decl.class",
+        "key.offset" : 1558,
+        "key.parsed_declaration" : "class Value2CellModel: SubtitleCellModel",
+        "key.doc.comment" : "Ugly looking cell with blue title. Corresponds to  cell of .Value2 style.",
+        "key.namelength" : 15,
+        "key.doc.line" : 72,
+        "key.bodylength" : 6,
+        "key.length" : 15,
+        "key.doc.column" : 7,
+        "key.parsed_scope.end" : 74,
+        "key.usr" : "s:C9CellModel15Value2CellModel",
+        "key.doc.file" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+        "key.nameoffset" : 1558,
+        "key.annotated_decl" : "<Declaration>class Value2CellModel : <Type usr=\"s:C9CellModel17SubtitleCellModel\">SubtitleCellModel<\/Type><\/Declaration>",
+        "key.accessibility" : "source.lang.swift.accessibility.internal",
+        "key.runtime_name" : "_TtC8__main__15Value2CellModel",
+        "key.elements" : [
+          {
+            "key.kind" : "source.lang.swift.structure.elem.typeref",
+            "key.offset" : 1575,
+            "key.length" : 17
+          }
+        ],
+        "key.parsed_scope.start" : 72,
+        "key.filepath" : "\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift",
+        "key.bodyoffset" : 1594,
+        "key.doc.declaration" : "class Value2CellModel : SubtitleCellModel",
+        "key.name" : "Value2CellModel",
+        "key.typename" : "Value2CellModel.Type",
+        "key.doc.type" : "Class",
+        "key.attributes" : [
+          {
+            "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+          }
+        ],
+        "key.doc.full_as_xml" : "<Class file=\"\/Users\/psharanda\/Work\/adocgen\/adocgen\/CellModel.swift\" line=\"72\" column=\"7\"><Name>Value2CellModel<\/Name><USR>s:C9CellModel15Value2CellModel<\/USR><Declaration>class Value2CellModel : SubtitleCellModel<\/Declaration><Abstract><Para>Ugly looking cell with blue title. Corresponds to  cell of .Value2 style.<\/Para><\/Abstract><\/Class>",
+        "key.doc.name" : "Value2CellModel",
+        "key.inheritedtypes" : [
+          {
+            "key.name" : "SubtitleCellModel"
+          }
+        ]
+      }
+    ],
+    "key.offset" : 0,
+    "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
+    "key.length" : 1605
+  }
+}
