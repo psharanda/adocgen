@@ -38,7 +38,7 @@ class CellModelFactory {
             if let i = map[type] {
                 
                 let w = i.make()
-                w.fromDict(json.dictionary!)
+                w.fromJson(json)
                 return w
             }
         }

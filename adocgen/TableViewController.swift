@@ -41,6 +41,10 @@ class TableViewController: UITableViewController {
     
     private func configureCellWithCellModel(cell: UITableViewCell, cellModel: CellModel) -> Void {
 
+        cell.imageView?.image = nil
+        cell.textLabel?.text = nil
+        cell.detailTextLabel?.text = nil
+        
         if let dw = cellModel as? DefaultCellModel {
             cell.textLabel?.text = dw.title
             

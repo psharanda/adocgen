@@ -7,7 +7,7 @@ import SwiftyJSON
 
 class CellModel {
     
-    func fromDict(dict:[String : JSON]) -> Void {
+    func fromJson(json: JSON) {
         
     }
     
@@ -31,8 +31,7 @@ class DefaultCellModel : CellModel  {
      */
     var iconName: String?
     
-    override func fromDict(dict: [String : JSON]) {
-        let json = JSON(dict)
+    override func fromJson(json: JSON) {
         self.title = json["title"].string
         self.iconName = json["iconName"].string
     }
@@ -48,10 +47,8 @@ class SubtitleCellModel : DefaultCellModel  {
     */
     var subtitle: String = "DEFAULT_SUBTITLE"
     
-    override func fromDict(dict: [String : JSON]) {
-        super.fromDict(dict)
-        
-        let json = JSON(dict)
+    override func fromJson(json: JSON) {
+        super.fromJson(json)
         
         if let s = json["subtitle"].string {
             self.subtitle = s
