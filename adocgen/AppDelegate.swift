@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func sourceKittenTypes() -> [SKType] {
         
         var types = [SKType]()
-        if let jsonPath = NSBundle.mainBundle().pathForResource("model.json", ofType: nil) {
+        if let jsonPath = Bundle.main.path(forResource: "model.json", ofType: nil) {
             do {
                 types = try parseSourceKittenOutput(jsonPath)
             }
@@ -25,19 +25,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return types
     }
     
-    func generateDocs(snippets: [String:[SnippetInfo]]) -> Void {
+    func generateDocs(_ snippets: [String:[SnippetInfo]]) -> Void {
         do {
             
             let mirrorer = {(type: String) -> Mirror? in
                 
                 if let w = CellModelFactory.sharedInstance.create(type) {
-                    return Mirror.init(reflecting: w)
+                    return Mirror(reflecting: w)
                 }
                 return nil
             }
             
-            let types = MetaDataGenerator.init().generateMetadata(sourceKittenTypes(), classTypeMap: CellModelFactory.sharedInstance.classTypeMap(), mirrorer: mirrorer, snippets: snippets)
-            let docGenerator = DocGenerator.init()
+            let types = MetaDataGenerator().generateMetadata(sourceKittenTypes(), classTypeMap: CellModelFactory.sharedInstance.classTypeMap(), mirrorer: mirrorer, snippets: snippets)
+            let docGenerator = DocGenerator()
             try docGenerator.generateDocumentation(types)
             print("Finished: \(docGenerator.referencePath)")
         }
@@ -54,14 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     typealias CellModelInfo = (String, CellModel, JSON)
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         var itemsList = [CellModelInfo]()
         
-        if let jsonPath = NSBundle.mainBundle().pathForResource("items.json", ofType: nil) {
-            if let jsonData = NSData.init(contentsOfFile: jsonPath) {
+        if let jsonPath = Bundle.main.path(forResource: "items.json", ofType: nil) {
+            if let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
                 do {
-                    let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments)
+                    let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
                     
                     let json = JSON(jsonObject)
                     
@@ -82,10 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        let vc = TableViewController.init()
-        let nc = UINavigationController.init(rootViewController: vc)
+        let vc = TableViewController()
+        let nc = UINavigationController(rootViewController: vc)
         
-        window = UIWindow.init()
+        window = UIWindow()
         window?.rootViewController = nc
         window?.makeKeyAndVisible()
         
@@ -96,13 +96,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func startGeneratingDocs(items:[CellModelInfo], vc: TableViewController) {
+    func startGeneratingDocs(_ items:[CellModelInfo], vc: TableViewController) {
         
         snapshotItem(0, items: items, vc: vc, snippets: [:])
     }
     
-    func loadItems(items:[CellModelInfo], vc: TableViewController) {
-        vc.items = items.reduce([CellModel](), combine: { (list:[CellModel], tuple: (String, CellModel, JSON)) -> [CellModel] in
+    func loadItems(_ items:[CellModelInfo], vc: TableViewController) {
+        vc.items = items.reduce([CellModel](), { (list:[CellModel], tuple: (String, CellModel, JSON)) -> [CellModel] in
             var a = list
             a.append(tuple.1)
             return a
@@ -110,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
     
-    func snapshotItem(idx: Int, items: [CellModelInfo], vc: TableViewController, snippets: [String : [SnippetInfo]]) {
+    func snapshotItem(_ idx: Int, items: [CellModelInfo], vc: TableViewController, snippets: [String : [SnippetInfo]]) {
         
         if idx == items.count {
             generateDocs(snippets)
@@ -119,10 +119,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         vc.items = [items[idx].1]
         
-        dispatch_after(1, dispatch_get_main_queue()) { () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { () -> Void in
             
             var mutSnippets = snippets
-            if let cell = vc.tableView.cellForRowAtIndexPath(NSIndexPath.init(forItem: 0, inSection: 0)) {
+            if let cell = vc.tableView.cellForRow(at: IndexPath(item: 0, section: 0)) {
                 
                 let img = UIImage.imageWithView(cell)
                 
@@ -130,10 +130,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     var a = (snippets[items[idx].0]) ?? [SnippetInfo]()
                     
-                    let imgPath = NSString.init(string: NSTemporaryDirectory()).stringByAppendingPathComponent("\(items[idx].0)-\(a.count + 1).png")
-                    imgData.writeToFile(imgPath, atomically: false)
+                    let imgPath = NSString(string: NSTemporaryDirectory()).appending("\(items[idx].0)-\(a.count + 1).png")
                     
-                    a.append(SnippetInfo.init(imagePath: imgPath, imageWidth: Int(img.size.width), imageHeight: Int(img.size.height), jsonSnippet: items[idx].2.rawValue))
+                    do {
+                        try imgData.write(to: URL(fileURLWithPath: imgPath))
+                    }
+                    catch let error as NSError {
+                        print(error)
+                    }
+                    
+                    a.append(SnippetInfo(imagePath: imgPath, imageWidth: Int(img.size.width), imageHeight: Int(img.size.height), jsonSnippet: items[idx].2.rawValue))
                     mutSnippets[items[idx].0] = a
                 }
                 
@@ -144,25 +150,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 

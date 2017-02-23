@@ -4,17 +4,17 @@
 
 import UIKit
 
-func typeName(some: Any) -> String {
-    return (some is Any.Type) ? "\(some)" : "\(some.dynamicType)"
+func typeName(_ some: Any) -> String {
+    return (some is Any.Type) ? "\(some)" : "\(type(of: (some)))"
 }
 
 extension UIImage {
-    class func imageWithView(view: UIView) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0)
-        view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+    class func imageWithView(_ view: UIView) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return img
+        return img!
     }
 }
 

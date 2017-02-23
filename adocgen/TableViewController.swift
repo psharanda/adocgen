@@ -8,7 +8,7 @@ class TableViewController: UITableViewController {
     
     var items: [CellModel]? {
         didSet {
-            if self.isViewLoaded() {
+            if self.isViewLoaded {
                 self.tableView.reloadData()
             }
          }
@@ -19,27 +19,27 @@ class TableViewController: UITableViewController {
         self.title = "DEMO"
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items?.count ?? 0
     }
     
-    private func cellStyleFromCellModel(cellModel:CellModel) -> UITableViewCellStyle {
+    fileprivate func cellStyleFromCellModel(_ cellModel:CellModel) -> UITableViewCellStyle {
         if (cellModel as? Value1CellModel) != nil {
-            return .Value1
+            return .value1
         } else if (cellModel as? Value2CellModel) != nil {
-            return .Value2
+            return .value2
         } else if (cellModel as? SubtitleCellModel) != nil {
-            return .Subtitle
+            return .subtitle
         } else {
-            return .Default
+            return .default
         }
     }
     
-    private func configureCellWithCellModel(cell: UITableViewCell, cellModel: CellModel) -> Void {
+    fileprivate func configureCellWithCellModel(_ cell: UITableViewCell, cellModel: CellModel) -> Void {
 
         cell.imageView?.image = nil
         cell.textLabel?.text = nil
@@ -49,7 +49,7 @@ class TableViewController: UITableViewController {
             cell.textLabel?.text = dw.title
             
             if let iconName = dw.iconName {
-                cell.imageView?.image = UIImage.init(named: iconName)
+                cell.imageView?.image = UIImage(named: iconName)
             }
         }
         
@@ -58,11 +58,11 @@ class TableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cellModel = items![indexPath.row]
         let cellId = typeName(cellModel)
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId) ?? UITableViewCell.init(style: self.cellStyleFromCellModel(cellModel), reuseIdentifier: cellId)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) ?? UITableViewCell(style: self.cellStyleFromCellModel(cellModel), reuseIdentifier: cellId)
         self.configureCellWithCellModel(cell, cellModel: cellModel)
         return cell
     }

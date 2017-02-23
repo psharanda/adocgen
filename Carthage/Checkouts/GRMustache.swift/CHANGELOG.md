@@ -1,6 +1,98 @@
 Release Notes
 =============
 
+## v2.0.0
+
+**New**
+
+- **Swift 3**
+- Templates learned to render Int64, UInt64, Float, and CGFloat.
+- The Box() function is no longer necessary when feeding templates:
+    
+    ```swift
+    // Still supported
+    let rendering try template.render(Box(["name": "Arthur"]))
+    
+    // New:
+    let rendering try template.render(["name": "Arthur"])
+    ```
+
+**Breaking Changes**
+
+- The only collections that can feed Mustache templates are arrays, sets, dictionaries, and Foundation collections that adopt NSFastEnumeration such as NSArray, SSet, NSOrderedSet, NSDictionary, etc. Other Swift collections such as ranges can no longer feed templates.
+
+- The following APIs were modified:
+    
+    ```diff
+     // Use nil instead
+    -func Box() -> MustacheBox
+    
+    -typealias KeyedSubscriptFunction = (key: String) -> MustacheBox
+    +typealias KeyedSubscriptFunction = (_ key: String) -> Any?
+    
+    -typealias FilterFunction = (box: MustacheBox, partialApplication: Bool) throws -> MustacheBox
+    +typealias FilterFunction = (_ box: MustacheBox, _ partialApplication: Bool) throws -> Any?
+    
+    -typealias WillRenderFunction = (tag: Tag, box: MustacheBox) -> MustacheBox
+    +typealias WillRenderFunction = (_ tag: Tag, _ box: MustacheBox) -> Any?
+    
+     struct Configuration {
+    -    func registerInBaseContext(_ key: String, _ box: MustacheBox)
+    +    func register(_ value: Any?, forKey key: String)
+     }
+    
+     class Template {
+    -    func registerInBaseContext(_ key: String, _ box: MustacheBox)
+    +    func register(_ value: Any?, forKey key: String)
+     }
+    
+     class Context {
+    -    func contextWithRegisteredKey(_ key: String, box: MustacheBox) -> Context
+    -    func mustacheBoxForKey(_ key: String) -> MustacheBox
+    -    func mustacheBoxForExpression(_ string: String) throws -> MustacheBox
+    +    func extendedContext(withRegisteredValue value: Any?, forKey key: String) -> Context
+    +    func mustacheBox(forKey key: String) -> MustacheBox
+    +    func mustacheBox(forExpression string: String) throws -> MustacheBox
+     }
+    
+     class MustacheBox {
+    -    func mustacheBoxForKey(_ key: String) -> MustacheBox
+    +    func mustacheBox(forKey key: String) -> MustacheBox
+     }
+    ```
+
+
+## v1.1.0
+
+Released on September 19, 2016
+
+**New**
+
+- Swift 2.3
+
+
+## v1.0.1
+
+Released on April 24, 2016
+
+**Fixed**
+
+- Restored support for Carthage ([@ariarijp](https://github.com/ariarijp), [#31](https://github.com/groue/GRMustache.swift/issues/31)))
+
+
+## v1.0.0
+
+Released on December 7, 2015
+
+**New**
+
+- Support for Swift Package Manager ([#17](https://github.com/groue/GRMustache.swift/issues/17))
+
+**Breaking Change**
+
+- Swift 2.2 ([#17](https://github.com/groue/GRMustache.swift/issues/17))
+
+
 ## v0.11.0
 
 Released on October 14, 2015

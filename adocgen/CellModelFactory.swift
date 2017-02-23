@@ -11,7 +11,7 @@ protocol AbstractInstantiator {
 
 class Instantiator<T:CellModel> : AbstractInstantiator {
     func make() -> CellModel {
-        return T.init()
+        return T()
     }
 }
 
@@ -19,20 +19,20 @@ class CellModelFactory {
     
     static let sharedInstance = CellModelFactory()
     
-    private var map = [String:AbstractInstantiator]()
+    fileprivate var map = [String:AbstractInstantiator]()
     
-    private init() {
+    fileprivate init() {
         self.register("default", instantiator: Instantiator<DefaultCellModel>())
         self.register("subtitle", instantiator: Instantiator<SubtitleCellModel>())
         self.register("value1", instantiator: Instantiator<Value1CellModel>())
         self.register("value2", instantiator: Instantiator<Value2CellModel>())
     }
     
-    func register(type: String, instantiator: AbstractInstantiator) {
+    func register(_ type: String, instantiator: AbstractInstantiator) {
         map[type] = instantiator
     }
     
-    func create(json: JSON) -> CellModel? {
+    func create(_ json: JSON) -> CellModel? {
         
         if let type = json["type"].string {
             if let i = map[type] {
@@ -45,7 +45,7 @@ class CellModelFactory {
         return nil
     }
     
-    func create(type: String) -> CellModel? {
+    func create(_ type: String) -> CellModel? {
         
         if let i = map[type] {
             

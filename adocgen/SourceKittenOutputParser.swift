@@ -39,8 +39,8 @@ struct SKField {
     let typename: String?
     let name: String?
     
-    static func makeFromDict(dict: [String: JSON]) -> SKField {
-        return SKField.init(comment: dict["key.doc.comment"]?.string, typename: dict["key.typename"]?.string, name: dict["key.name"]?.string)
+    static func makeFromDict(_ dict: [String: JSON]) -> SKField {
+        return SKField(comment: dict["key.doc.comment"]?.string, typename: dict["key.typename"]?.string, name: dict["key.name"]?.string)
     }
 }
 
@@ -50,7 +50,7 @@ struct SKType {
     let inheritedTypes: [String]
     let fields: [SKField]
     
-    static func makeFromDict(dict: [String: JSON]) -> SKType {
+    static func makeFromDict(_ dict: [String: JSON]) -> SKType {
         
         var inheritedTypes = [String]()
         
@@ -66,21 +66,21 @@ struct SKType {
         
         if let a = dict["key.substructure"]?.array {
             for d in a {
-                if let dd = d.dictionary where dd["key.kind"] == "source.lang.swift.decl.var.instance" {
+                if let dd = d.dictionary, dd["key.kind"] == "source.lang.swift.decl.var.instance" {
                     fields.append(SKField.makeFromDict(dd))
                 }
             }
         }
         
-        return SKType.init(comment: dict["key.doc.comment"]?.string, name: dict["key.name"]?.string, inheritedTypes: inheritedTypes, fields: fields)
+        return SKType(comment: dict["key.doc.comment"]?.string, name: dict["key.name"]?.string, inheritedTypes: inheritedTypes, fields: fields)
     }
 }
 
-func parseSourceKittenOutput(jsonPath: String) throws -> [SKType] {
+func parseSourceKittenOutput(_ jsonPath: String) throws -> [SKType] {
     var types = [SKType]()
     
-    if let jsonData = NSData.init(contentsOfFile: jsonPath) {
-        let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments)
+    if let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) {
+        let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
         
         let json = JSON(jsonObject)
         

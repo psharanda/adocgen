@@ -1,5 +1,4 @@
-github "groue/GRMustache.swift" == 0.11.0
-
+github "groue/GRMustache.swift"
 github "SwiftyJSON/SwiftyJSON"
 
 

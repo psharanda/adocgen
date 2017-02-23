@@ -9,7 +9,7 @@ class DocGenerator {
     
     var appName: String
     var appVersion: String
-    var date: NSDate
+    var date: Date
     var company: String
     
     var referencePath: String
@@ -19,19 +19,19 @@ class DocGenerator {
     var typeTemplateFileName: String
     
     var cssPath: String {
-        return NSString.init(string: self.referencePath).stringByAppendingPathComponent("css")
+        return NSString(string: self.referencePath).appendingPathComponent("css")
     }
     var imagesPath: String {
-        return NSString.init(string: self.referencePath).stringByAppendingPathComponent("images")
+        return NSString(string: self.referencePath).appendingPathComponent("images")
     }
     
     init () {
         self.appName = "My App"
         self.appVersion = "1.0"
-        self.date = NSDate.init()
+        self.date = Date()
         self.company = "My Company"
         
-        if let infoDict = NSBundle.mainBundle().infoDictionary {
+        if let infoDict = Bundle.main.infoDictionary {
             
             if let name = infoDict["CFBundleName"] as? String {
                 self.appName = name
@@ -41,7 +41,7 @@ class DocGenerator {
             }
         }
         
-        self.referencePath = NSString.init(string: NSTemporaryDirectory()).stringByAppendingPathComponent("Reference")
+        self.referencePath = NSString(string: NSTemporaryDirectory()).appendingPathComponent("Reference")
         
         self.cssFileName = "styles.css"
         self.indexTemplateFileName = "index.html"
@@ -50,19 +50,19 @@ class DocGenerator {
     
     //MARK: - utils
     
-    private func baseDict() -> [String:AnyObject] {
+    fileprivate func baseDict() -> [String:Any] {
         
-        let dateFormatter = NSDateFormatter.init()
-        dateFormatter.dateStyle = .ShortStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
         
-        let dateString = dateFormatter.stringFromDate(self.date)
+        let dateString = dateFormatter.string(from: self.date)
         dateFormatter.dateFormat = "YYYY"
-        let yearString = dateFormatter.stringFromDate(self.date)
+        let yearString = dateFormatter.string(from: self.date)
         
         return ["app_name":self.appName, "app_version":self.appVersion, "date":dateString, "year": yearString, "company":self.company]
     }
     
-    private func linkOrSpan(type: String, objectTypes:[TypeMetaData]) -> String {
+    fileprivate func linkOrSpan(_ type: String, objectTypes:[TypeMetaData]) -> String {
         for i in objectTypes {
             if i.type == type {
                 return "<a href=\"\(type).html\">\(type)</a>"
@@ -71,39 +71,39 @@ class DocGenerator {
         return type
     }
     
-    private func jsonString(jsonObject: AnyObject) throws -> NSString? {
-        let data = try NSJSONSerialization.dataWithJSONObject(jsonObject, options: .PrettyPrinted)
-        let jsonString = NSString.init(data: data, encoding: NSUTF8StringEncoding)
-        return jsonString?.stringByReplacingOccurrencesOfString("\\/", withString:"/")
+    fileprivate func jsonString(_ jsonObject: Any) throws -> NSString? {
+        let data = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+        let jsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+        return jsonString?.replacingOccurrences(of: "\\/", with:"/") as NSString?
     }
     
     func prepareDirectories() throws -> Void {
         
-        if NSFileManager.defaultManager().fileExistsAtPath(self.referencePath) {
-            try NSFileManager.defaultManager().removeItemAtPath(self.referencePath)
+        if FileManager.default.fileExists(atPath: self.referencePath) {
+            try FileManager.default.removeItem(atPath: self.referencePath)
         }
         
-        try NSFileManager.defaultManager().createDirectoryAtPath(self.referencePath, withIntermediateDirectories: true, attributes:  nil)
-        try NSFileManager.defaultManager().createDirectoryAtPath(self.cssPath, withIntermediateDirectories: true, attributes: nil)
-        try NSFileManager.defaultManager().createDirectoryAtPath(self.imagesPath, withIntermediateDirectories: true, attributes: nil)
+        try FileManager.default.createDirectory(atPath: self.referencePath, withIntermediateDirectories: true, attributes:  nil)
+        try FileManager.default.createDirectory(atPath: self.cssPath, withIntermediateDirectories: true, attributes: nil)
+        try FileManager.default.createDirectory(atPath: self.imagesPath, withIntermediateDirectories: true, attributes: nil)
         
-        if let cssPath = NSBundle.mainBundle().pathForResource(self.cssFileName, ofType: nil) {
-            try NSFileManager.defaultManager().copyItemAtPath(cssPath, toPath:  NSString.init(string: self.cssPath).stringByAppendingPathComponent(self.cssFileName))
+        if let cssPath = Bundle.main.path(forResource: self.cssFileName, ofType: nil) {
+            try FileManager.default.copyItem(atPath: cssPath, toPath:  NSString(string: self.cssPath).appendingPathComponent(self.cssFileName))
         }
     }
     
     //MARK: - public api
     
-    func generateDocumentation(objectTypes:[TypeMetaData]) throws -> Void {
+    func generateDocumentation(_ objectTypes:[TypeMetaData]) throws -> Void {
         
-        if let indexTemplateFilePath = NSBundle.mainBundle().pathForResource(self.indexTemplateFileName, ofType: nil),
-            let typeTemplateFilePath = NSBundle.mainBundle().pathForResource(self.typeTemplateFileName, ofType: nil) {
+        if let indexTemplateFilePath = Bundle.main.path(forResource: self.indexTemplateFileName, ofType: nil),
+            let typeTemplateFilePath = Bundle.main.path(forResource: self.typeTemplateFileName, ofType: nil) {
                 try prepareDirectories()
                 try self.generateDocumentation(indexTemplateFilePath, typeTemplateFilePath: typeTemplateFilePath, targetDirectoryPath: self.referencePath, objectTypes: objectTypes)
         }
     }
     
-    func generateDocumentation(indexTemplateFilePath:String, typeTemplateFilePath:String, targetDirectoryPath: String, objectTypes:[TypeMetaData]) throws -> Void {
+    func generateDocumentation(_ indexTemplateFilePath:String, typeTemplateFilePath:String, targetDirectoryPath: String, objectTypes:[TypeMetaData]) throws -> Void {
         
         try generateIndexHtml(indexTemplateFilePath, targetDirectoryPath: targetDirectoryPath, objectTypes: objectTypes)
         
@@ -113,23 +113,23 @@ class DocGenerator {
         
     }
     
-    func generateIndexHtml(indexTemplateFilePath:String, targetDirectoryPath: String, objectTypes:[TypeMetaData]) throws -> Void {
+    func generateIndexHtml(_ indexTemplateFilePath:String, targetDirectoryPath: String, objectTypes:[TypeMetaData]) throws -> Void {
         
         let template = try Template(path: indexTemplateFilePath)
         let indexHtml = try template.render(self.boxForIndex(objectTypes))
-        try indexHtml.writeToFile(targetDirectoryPath.stringByAppendingString("/index.html"), atomically: false, encoding: NSUTF8StringEncoding)
+        try indexHtml.write(toFile: (targetDirectoryPath as NSString).appending("/index.html"), atomically: false, encoding: String.Encoding.utf8)
     }
     
-    func generateTypeHtml(typeTemplateFilePath:String, targetDirectoryPath: String, objectType: TypeMetaData, objectTypes:[TypeMetaData]) throws -> Void {
+    func generateTypeHtml(_ typeTemplateFilePath:String, targetDirectoryPath: String, objectType: TypeMetaData, objectTypes:[TypeMetaData]) throws -> Void {
         
         let template = try Template(path: typeTemplateFilePath)
         let indexHtml = try template.render(self.boxForType(objectType, objectTypes: objectTypes))
-        try indexHtml.writeToFile(targetDirectoryPath.stringByAppendingString("/\(objectType.type).html"), atomically: false, encoding: NSUTF8StringEncoding)
+        try indexHtml.write(toFile:(targetDirectoryPath as NSString).appending("/\(objectType.type).html"), atomically: false, encoding: String.Encoding.utf8)
     }
     
     //MARK: - render index
     
-    private class HierarchyItem {
+    fileprivate class HierarchyItem {
         let type: String
         let supertype: String?
         var subitems: [HierarchyItem] = []
@@ -140,7 +140,7 @@ class DocGenerator {
         }
     }
     
-    private func hierarchyDeepSearch(item: HierarchyItem, type: String) -> HierarchyItem? {
+    fileprivate func hierarchyDeepSearch(_ item: HierarchyItem, type: String) -> HierarchyItem? {
         
         if item.type == type {
             return item
@@ -156,13 +156,13 @@ class DocGenerator {
         return nil
     }
     
-    private func buildTypesHierarchy(objectTypes:[TypeMetaData]) -> [HierarchyItem] {
+    fileprivate func buildTypesHierarchy(_ objectTypes:[TypeMetaData]) -> [HierarchyItem] {
         var result = [HierarchyItem]()
         
         var knownItems = [HierarchyItem]()
         
         for meta in objectTypes {
-            let item = HierarchyItem.init(type: meta.type, supertype: meta.supertype)
+            let item = HierarchyItem(type: meta.type, supertype: meta.supertype)
             knownItems.append(item)
         }
         
@@ -188,13 +188,13 @@ class DocGenerator {
         return result
     }
     
-    private func htmlStringForHierarchyItems(items: [HierarchyItem], objectTypes: [TypeMetaData]) -> String {
-        return "<ul>" + items.reduce("", combine: { (text:String, item: HierarchyItem) -> String in
+    fileprivate func htmlStringForHierarchyItems(_ items: [HierarchyItem], objectTypes: [TypeMetaData]) -> String {
+        return "<ul>" + items.reduce("", { (text:String, item: HierarchyItem) -> String in
             return text + "<li>" + self.linkOrSpan(item.type, objectTypes: objectTypes) + self.htmlStringForHierarchyItems(item.subitems, objectTypes: objectTypes)+"</li>"
         }) + "</ul>"
     }
     
-    private func boxForIndex(objectTypes:[TypeMetaData]) -> MustacheBox {
+    fileprivate func boxForIndex(_ objectTypes:[TypeMetaData]) -> MustacheBox {
         var dict = self.baseDict()
             
         dict["index"] = self.htmlStringForHierarchyItems(self.buildTypesHierarchy(objectTypes), objectTypes: objectTypes)
@@ -204,7 +204,7 @@ class DocGenerator {
     
      //MARK: - render type
     
-    private func boxForType(meta: TypeMetaData, objectTypes:[TypeMetaData]) throws -> MustacheBox {
+    fileprivate func boxForType(_ meta: TypeMetaData, objectTypes:[TypeMetaData]) throws -> MustacheBox {
         var dict = self.baseDict()
         
         if (meta.overview != nil) {
@@ -240,22 +240,23 @@ class DocGenerator {
         }
         
         if hierarchy.count > 0 {
-            dict["hierarchy"] = hierarchy.reduce("", combine: { (str: String, item: String) -> String in
-                return str + (str.characters.count > 0 ? ":" : "") + item
+            dict["hierarchy"] = hierarchy.reduce("", { (str: String, item: String) -> String in
+                let s = (str.characters.count > 0 ? ":" : "")
+                return str + s + item
             })
             dict["has_inherits"] = true
         } else {
             dict["has_inherits"] = false
         }
         
-        if let fields = meta.fields where fields.count > 0 {
+        if let fields = meta.fields, fields.count > 0 {
         
-            var fieldsDicts = [[String:AnyObject]]()
+            var fieldsDicts = [[String:Any]]()
         
             for f in fields {
-                var fieldDict = [String:AnyObject]()
+                var fieldDict = [String:Any]()
                 fieldDict["name"] = f.name
-                fieldDict["type"] = f.type.rawValue.lowercaseString
+                fieldDict["type"] = f.type.rawValue.lowercased()
 
                 if (f.defaultValue != nil) {
                     fieldDict["default_value"] = f.defaultValue
@@ -279,20 +280,20 @@ class DocGenerator {
             dict["has_fields"] = false
         }
         
-        if let snips = meta.snippets where snips.count > 0 {
+        if let snips = meta.snippets, snips.count > 0 {
             
-            var snippetsDicts = [[String:AnyObject]]()
+            var snippetsDicts = [[String:Any]]()
             
             for snippet in snips {
                 
-                var snipDict = [String:AnyObject]()
+                var snipDict = [String:Any]()
                 snipDict["json"] = try self.jsonString(snippet.jsonSnippet)
                 snipDict["width"] = snippet.imageWidth
                 snipDict["height"] = snippet.imageHeight
                 
-                let filename = NSString.init(string: snippet.imagePath).lastPathComponent
+                let filename = NSString(string: snippet.imagePath).lastPathComponent
                 
-                try NSFileManager.defaultManager().moveItemAtPath(snippet.imagePath, toPath: NSString.init(string: self.imagesPath).stringByAppendingPathComponent(filename))
+                try FileManager.default.moveItem(atPath: snippet.imagePath, toPath: NSString(string: self.imagesPath).appendingPathComponent(filename))
                 
                 snipDict["filename"] = filename
                 

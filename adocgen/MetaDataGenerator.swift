@@ -17,7 +17,7 @@ struct SnippetInfo {
     let imagePath: String
     let imageWidth: Int
     let imageHeight: Int
-    let jsonSnippet: AnyObject
+    let jsonSnippet: Any
 }
 
 struct FieldMetaData {
@@ -37,27 +37,27 @@ struct TypeMetaData {
 
 struct MetaDataGenerator {
     
-    func jsonTypeFromSwiftType(swiftType: String?) -> FieldType {
+    func jsonTypeFromSwiftType(_ swiftType: String?) -> FieldType {
         
         guard let st = swiftType else {
             return .Undefined
         }
         
         
-        if st.containsString(":") {
+        if st.contains(":") {
             return .Dictionary
-        } else if st.containsString("[") {
+        } else if st.contains("[") {
             return .Array
-        } else if st.containsString("String") {
+        } else if st.contains("String") {
             return .String
-        } else if st.containsString("Int") || st.containsString("Double") {
+        } else if st.contains("Int") || st.contains("Double") {
             return .Number
         } else {
             return .Undefined
         }
     }
     
-    func supertypeForType(type: SKType, classTypeMap: [String: String]) -> String? {
+    func supertypeForType(_ type: SKType, classTypeMap: [String: String]) -> String? {
         
         for sup in type.inheritedTypes {
             if classTypeMap[sup] != nil  {
@@ -67,7 +67,7 @@ struct MetaDataGenerator {
         return nil
     }
     
-    func generateMetadata(sourceKittenTypes: [SKType], classTypeMap: [String: String], mirrorer: (String) -> Mirror?, snippets: [String:[SnippetInfo]]) -> [TypeMetaData]
+    func generateMetadata(_ sourceKittenTypes: [SKType], classTypeMap: [String: String], mirrorer: (String) -> Mirror?, snippets: [String:[SnippetInfo]]) -> [TypeMetaData]
     {
         var mds = [TypeMetaData]()
         
@@ -94,13 +94,13 @@ struct MetaDataGenerator {
                             }
                         }                        
                         
-                        fields.append(FieldMetaData.init(name: fname, type: jsonTypeFromSwiftType(fd.typename), overview: fd.comment, defaultValue: defaultValue))
+                        fields.append(FieldMetaData(name: fname, type: jsonTypeFromSwiftType(fd.typename), overview: fd.comment, defaultValue: defaultValue))
                     }
                 }
                 
                 let superClassType = supertypeForType(sk, classTypeMap: classTypeMap)
                 
-                mds.append(TypeMetaData.init(type: type, overview: sk.comment, fields: fields, snippets: snippets[type], supertype: superClassType != nil ? classTypeMap[superClassType!] : nil))
+                mds.append(TypeMetaData(type: type, overview: sk.comment, fields: fields, snippets: snippets[type], supertype: superClassType != nil ? classTypeMap[superClassType!] : nil))
             }
             
         }

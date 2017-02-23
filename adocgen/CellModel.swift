@@ -7,7 +7,7 @@ import SwiftyJSON
 
 class CellModel {
     
-    func fromJson(json: JSON) {
+    func fromJson(_ json: JSON) {
         
     }
     
@@ -31,7 +31,7 @@ class DefaultCellModel : CellModel  {
      */
     var iconName: String?
     
-    override func fromJson(json: JSON) {
+    override func fromJson(_ json: JSON) {
         self.title = json["title"].string
         self.iconName = json["iconName"].string
     }
@@ -47,7 +47,7 @@ class SubtitleCellModel : DefaultCellModel  {
     */
     var subtitle: String = "DEFAULT_SUBTITLE"
     
-    override func fromJson(json: JSON) {
+    override func fromJson(_ json: JSON) {
         super.fromJson(json)
         
         if let s = json["subtitle"].string {
