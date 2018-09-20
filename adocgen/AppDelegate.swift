@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     typealias CellModelInfo = (String, CellModel, JSON)
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         var itemsList = [CellModelInfo]()
         
@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let img = UIImage.imageWithView(cell)
                 
-                if let imgData = UIImagePNGRepresentation(img) {
+                if let imgData = img.pngData() {
                     
                     var a = (snippets[items[idx].0]) ?? [SnippetInfo]()
                     

@@ -27,8 +27,8 @@ import Mustache
 class ObjcKeyAccessTests: XCTestCase {
     
     class ClassWithProperties: NSObject {
-        let property: String = "property"
-        func method() -> String { return "method" }
+        @objc let property: String = "property"
+        @objc func method() -> String { return "method" }
     }
     
     func testPropertiesAreSafeAndAvailable() {

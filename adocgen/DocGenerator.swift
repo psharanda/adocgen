@@ -241,7 +241,7 @@ class DocGenerator {
         
         if hierarchy.count > 0 {
             dict["hierarchy"] = hierarchy.reduce("", { (str: String, item: String) -> String in
-                let s = (str.characters.count > 0 ? ":" : "")
+                let s = (str.count > 0 ? ":" : "")
                 return str + s + item
             })
             dict["has_inherits"] = true

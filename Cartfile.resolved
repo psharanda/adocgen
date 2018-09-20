@@ -1,2 +1,2 @@
-github "groue/GRMustache.swift" "2.0.0"
-github "SwiftyJSON/SwiftyJSON" "3.1.4"
+github "SwiftyJSON/SwiftyJSON" "4.1.0"
+github "ainopara/GRMustache.swift" "f52520bfecd9417a00cc18291884dd916d8e0f04"

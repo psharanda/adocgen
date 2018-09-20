@@ -27,7 +27,7 @@ class TableViewController: UITableViewController {
         return items?.count ?? 0
     }
     
-    fileprivate func cellStyleFromCellModel(_ cellModel:CellModel) -> UITableViewCellStyle {
+    fileprivate func cellStyleFromCellModel(_ cellModel:CellModel) -> UITableViewCell.CellStyle {
         if (cellModel as? Value1CellModel) != nil {
             return .value1
         } else if (cellModel as? Value2CellModel) != nil {

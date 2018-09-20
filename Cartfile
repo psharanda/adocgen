@@ -1,4 +1,4 @@
-github "groue/GRMustache.swift"
+github "ainopara/GRMustache.swift" "master"
 github "SwiftyJSON/SwiftyJSON"
 
 
